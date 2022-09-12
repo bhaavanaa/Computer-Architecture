@@ -1,0 +1,5661 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x244f760 .scope module, "top" "top" 2 3;
+ .timescale 0 0;
+v0x2526ac0_0 .var "clk", 0 0;
+v0x2526b40_0 .var "dc_read_address", 15 1;
+v0x2526bc0_0 .net "dc_read_output", 15 0, v0x2525e00_0; 1 drivers
+v0x2526c70_0 .var "dc_write_address", 15 1;
+v0x2526d50_0 .var "dc_write_data", 15 0;
+v0x2526e00_0 .var "ic_address", 15 1;
+v0x2526e80_0 .var "ic_enable", 0 0;
+v0x2526f30_0 .net "ic_read_output", 15 0, v0x2526620_0; 1 drivers
+v0x2526fe0_0 .var "ic_write_data", 15 0;
+E_0x244f690/0 .event edge, v0x2526350_0, v0x2526500_0, v0x2526910_0, v0x2526620_0;
+E_0x244f690/1 .event edge, v0x2525d50_0, v0x2526110_0, v0x25261b0_0, v0x2525e00_0;
+E_0x244f690 .event/or E_0x244f690/0, E_0x244f690/1;
+S_0x24d6410 .scope module, "cd" "cache_design" 2 14, 3 1, S_0x244f760;
+ .timescale 0 0;
+v0x24d5fb0_0 .net "clk", 0 0, v0x2526ac0_0; 1 drivers
+v0x2525c30 .array "data_cache", 0 2047, 128 1;
+v0x2525cb0_0 .var "dc_dirty", 2047 0;
+v0x2525d50_0 .net "dc_read_address", 15 1, v0x2526b40_0; 1 drivers
+v0x2525e00_0 .var "dc_read_output", 15 0;
+v0x2525ea0_0 .var "dc_tag", 2047 0;
+v0x2525f80_0 .var "dc_temp", 12 1;
+v0x2526020_0 .var "dc_valid", 2047 0;
+v0x2526110_0 .net "dc_write_address", 15 1, v0x2526c70_0; 1 drivers
+v0x25261b0_0 .net "dc_write_data", 15 0, v0x2526d50_0; 1 drivers
+v0x25262b0_0 .var/i "i", 31 0;
+v0x2526350_0 .net "ic_address", 15 1, v0x2526e00_0; 1 drivers
+v0x2526460_0 .var "ic_dirty", 1023 0;
+v0x2526500_0 .net "ic_enable", 0 0, v0x2526e80_0; 1 drivers
+v0x2526620_0 .var "ic_read_output", 15 0;
+v0x25266c0 .array "ic_tag", 0 1023, 2 1;
+v0x2526580_0 .var "ic_temp", 12 1;
+v0x25267f0_0 .var "ic_valid", 1023 0;
+v0x2526910_0 .net "ic_write_data", 15 0, v0x2526fe0_0; 1 drivers
+v0x2526990 .array "inst_cache", 0 1023, 128 1;
+v0x2526870 .array "main_memory", 0 4095, 128 1;
+E_0x24d6500 .event posedge, v0x24d5fb0_0;
+    .scope S_0x24d6410;
+T_0 ;
+    %set/v v0x25262b0_0, 0, 32;
+T_0.0 ;
+    %load/v 8, v0x25262b0_0, 32;
+   %cmpi/s 8, 1024, 32;
+    %jmp/0xz T_0.1, 5;
+    %ix/getv/s 1, v0x25262b0_0;
+    %jmp/1 t_0, 4;
+    %ix/load 0, 1, 0;
+    %assign/v0/x1 v0x25267f0_0, 0, 0;
+t_0 ;
+    %ix/getv/s 1, v0x25262b0_0;
+    %jmp/1 t_1, 4;
+    %ix/load 0, 1, 0;
+    %assign/v0/x1 v0x2526460_0, 0, 0;
+t_1 ;
+    %ix/getv/s 3, v0x25262b0_0;
+    %jmp/1 t_2, 4;
+    %ix/load 0, 2, 0; word width
+    %ix/load 1, 0, 0; part off
+    %assign/av v0x25266c0, 0, 0;
+t_2 ;
+    %ix/load 0, 1, 0;
+    %load/vp0/s 8, v0x25262b0_0, 32;
+    %set/v v0x25262b0_0, 8, 32;
+    %jmp T_0.0;
+T_0.1 ;
+    %end;
+    .thread T_0;
+    .scope S_0x24d6410;
+T_1 ;
+    %set/v v0x25262b0_0, 0, 32;
+T_1.0 ;
+    %load/v 8, v0x25262b0_0, 32;
+   %cmpi/s 8, 2048, 32;
+    %jmp/0xz T_1.1, 5;
+    %ix/getv/s 1, v0x25262b0_0;
+    %jmp/1 t_3, 4;
+    %ix/load 0, 1, 0;
+    %assign/v0/x1 v0x2526020_0, 0, 0;
+t_3 ;
+    %ix/getv/s 1, v0x25262b0_0;
+    %jmp/1 t_4, 4;
+    %ix/load 0, 1, 0;
+    %assign/v0/x1 v0x2525cb0_0, 0, 0;
+t_4 ;
+    %ix/getv/s 1, v0x25262b0_0;
+    %jmp/1 t_5, 4;
+    %ix/load 0, 1, 0;
+    %assign/v0/x1 v0x2525ea0_0, 0, 0;
+t_5 ;
+    %ix/load 0, 1, 0;
+    %load/vp0/s 8, v0x25262b0_0, 32;
+    %set/v v0x25262b0_0, 8, 32;
+    %jmp T_1.0;
+T_1.1 ;
+    %end;
+    .thread T_1;
+    .scope S_0x24d6410;
+T_2 ;
+    %wait E_0x24d6500;
+    %ix/load 1, 13, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.0, 4;
+    %load/x1p 8, v0x2526350_0, 2;
+    %jmp T_2.1;
+T_2.0 ;
+    %mov 8, 2, 2;
+T_2.1 ;
+; Save base=8 wid=2 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.2, 4;
+    %load/x1p 12, v0x2526350_0, 10;
+    %jmp T_2.3;
+T_2.2 ;
+    %mov 12, 2, 10;
+T_2.3 ;
+; Save base=12 wid=10 in lookaside.
+    %ix/get 3, 12, 10;
+    %load/av 10, v0x25266c0, 2;
+    %cmp/u 8, 10, 2;
+    %mov 8, 4, 1;
+    %load/v 9, v0x2526500_0, 1;
+    %and 8, 9, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.4, 4;
+    %load/x1p 9, v0x2526350_0, 10;
+    %jmp T_2.5;
+T_2.4 ;
+    %mov 9, 2, 10;
+T_2.5 ;
+; Save base=9 wid=10 in lookaside.
+    %ix/get 1, 9, 10;
+    %jmp/1 T_2.6, 4;
+    %load/x1p 9, v0x25267f0_0, 1;
+    %jmp T_2.7;
+T_2.6 ;
+    %mov 9, 2, 1;
+T_2.7 ;
+; Save base=9 wid=1 in lookaside.
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.8, 8;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.10, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.12, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.13;
+T_2.12 ;
+    %mov 24, 2, 10;
+T_2.13 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_6, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526990, 8, 16;
+t_6 ;
+T_2.10 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.14, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.16, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.17;
+T_2.16 ;
+    %mov 24, 2, 10;
+T_2.17 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_7, 4;
+   %ix/load 1, 16, 0;
+   %set/av v0x2526990, 8, 16;
+t_7 ;
+T_2.14 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.18, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.20, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.21;
+T_2.20 ;
+    %mov 24, 2, 10;
+T_2.21 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_8, 4;
+   %ix/load 1, 32, 0;
+   %set/av v0x2526990, 8, 16;
+t_8 ;
+T_2.18 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.22, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.24, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.25;
+T_2.24 ;
+    %mov 24, 2, 10;
+T_2.25 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_9, 4;
+   %ix/load 1, 48, 0;
+   %set/av v0x2526990, 8, 16;
+t_9 ;
+T_2.22 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.26, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.28, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.29;
+T_2.28 ;
+    %mov 24, 2, 10;
+T_2.29 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_10, 4;
+   %ix/load 1, 64, 0;
+   %set/av v0x2526990, 8, 16;
+t_10 ;
+T_2.26 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.30, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.32, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.33;
+T_2.32 ;
+    %mov 24, 2, 10;
+T_2.33 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_11, 4;
+   %ix/load 1, 80, 0;
+   %set/av v0x2526990, 8, 16;
+t_11 ;
+T_2.30 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.34, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.36, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.37;
+T_2.36 ;
+    %mov 24, 2, 10;
+T_2.37 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_12, 4;
+   %ix/load 1, 96, 0;
+   %set/av v0x2526990, 8, 16;
+t_12 ;
+T_2.34 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.38, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.40, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.41;
+T_2.40 ;
+    %mov 24, 2, 10;
+T_2.41 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_13, 4;
+   %ix/load 1, 112, 0;
+   %set/av v0x2526990, 8, 16;
+t_13 ;
+T_2.38 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.42, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.43;
+T_2.42 ;
+    %mov 8, 2, 10;
+T_2.43 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 0, 8, 10;
+    %jmp/1 t_14, 4;
+    %set/x0 v0x2526460_0, 1, 1;
+t_14 ;
+T_2.8 ;
+    %ix/load 1, 13, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.44, 4;
+    %load/x1p 8, v0x2526350_0, 2;
+    %jmp T_2.45;
+T_2.44 ;
+    %mov 8, 2, 2;
+T_2.45 ;
+; Save base=8 wid=2 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.46, 4;
+    %load/x1p 12, v0x2526350_0, 10;
+    %jmp T_2.47;
+T_2.46 ;
+    %mov 12, 2, 10;
+T_2.47 ;
+; Save base=12 wid=10 in lookaside.
+    %ix/get 3, 12, 10;
+    %load/av 10, v0x25266c0, 2;
+    %cmp/u 8, 10, 2;
+    %mov 8, 4, 1;
+    %load/v 9, v0x2526500_0, 1;
+    %and 8, 9, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.48, 4;
+    %load/x1p 9, v0x2526350_0, 10;
+    %jmp T_2.49;
+T_2.48 ;
+    %mov 9, 2, 10;
+T_2.49 ;
+; Save base=9 wid=10 in lookaside.
+    %ix/get 1, 9, 10;
+    %jmp/1 T_2.50, 4;
+    %load/x1p 9, v0x25267f0_0, 1;
+    %jmp T_2.51;
+T_2.50 ;
+    %mov 9, 2, 1;
+T_2.51 ;
+; Save base=9 wid=1 in lookaside.
+    %cmpi/u 9, 0, 1;
+    %mov 9, 4, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.52, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.54, 4;
+    %load/x1p 136, v0x2526350_0, 12;
+    %jmp T_2.55;
+T_2.54 ;
+    %mov 136, 2, 12;
+T_2.55 ;
+; Save base=136 wid=12 in lookaside.
+    %ix/get 3, 136, 12;
+    %load/av 8, v0x2526870, 128;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.56, 4;
+    %load/x1p 136, v0x2526350_0, 10;
+    %jmp T_2.57;
+T_2.56 ;
+    %mov 136, 2, 10;
+T_2.57 ;
+; Save base=136 wid=10 in lookaside.
+    %ix/get 3, 136, 10;
+   %jmp/1 t_15, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526990, 8, 128;
+t_15 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.58, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.60, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.61;
+T_2.60 ;
+    %mov 24, 2, 10;
+T_2.61 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_16, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526990, 8, 16;
+t_16 ;
+T_2.58 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.62, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.64, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.65;
+T_2.64 ;
+    %mov 24, 2, 10;
+T_2.65 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_17, 4;
+   %ix/load 1, 16, 0;
+   %set/av v0x2526990, 8, 16;
+t_17 ;
+T_2.62 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.66, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.68, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.69;
+T_2.68 ;
+    %mov 24, 2, 10;
+T_2.69 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_18, 4;
+   %ix/load 1, 32, 0;
+   %set/av v0x2526990, 8, 16;
+t_18 ;
+T_2.66 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.70, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.72, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.73;
+T_2.72 ;
+    %mov 24, 2, 10;
+T_2.73 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_19, 4;
+   %ix/load 1, 48, 0;
+   %set/av v0x2526990, 8, 16;
+t_19 ;
+T_2.70 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.74, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.76, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.77;
+T_2.76 ;
+    %mov 24, 2, 10;
+T_2.77 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_20, 4;
+   %ix/load 1, 64, 0;
+   %set/av v0x2526990, 8, 16;
+t_20 ;
+T_2.74 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.78, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.80, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.81;
+T_2.80 ;
+    %mov 24, 2, 10;
+T_2.81 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_21, 4;
+   %ix/load 1, 80, 0;
+   %set/av v0x2526990, 8, 16;
+t_21 ;
+T_2.78 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.82, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.84, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.85;
+T_2.84 ;
+    %mov 24, 2, 10;
+T_2.85 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_22, 4;
+   %ix/load 1, 96, 0;
+   %set/av v0x2526990, 8, 16;
+t_22 ;
+T_2.82 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.86, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.88, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.89;
+T_2.88 ;
+    %mov 24, 2, 10;
+T_2.89 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_23, 4;
+   %ix/load 1, 112, 0;
+   %set/av v0x2526990, 8, 16;
+t_23 ;
+T_2.86 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.90, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.91;
+T_2.90 ;
+    %mov 8, 2, 10;
+T_2.91 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 0, 8, 10;
+    %jmp/1 t_24, 4;
+    %set/x0 v0x2526460_0, 1, 1;
+t_24 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.92, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.93;
+T_2.92 ;
+    %mov 8, 2, 10;
+T_2.93 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 0, 8, 10;
+    %jmp/1 t_25, 4;
+    %set/x0 v0x25267f0_0, 1, 1;
+t_25 ;
+T_2.52 ;
+    %ix/load 1, 13, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.94, 4;
+    %load/x1p 8, v0x2526350_0, 2;
+    %jmp T_2.95;
+T_2.94 ;
+    %mov 8, 2, 2;
+T_2.95 ;
+; Save base=8 wid=2 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.96, 4;
+    %load/x1p 12, v0x2526350_0, 10;
+    %jmp T_2.97;
+T_2.96 ;
+    %mov 12, 2, 10;
+T_2.97 ;
+; Save base=12 wid=10 in lookaside.
+    %ix/get 3, 12, 10;
+    %load/av 10, v0x25266c0, 2;
+    %cmp/u 8, 10, 2;
+    %inv 4, 1;
+    %mov 8, 4, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.98, 4;
+    %load/x1p 9, v0x2526350_0, 10;
+    %jmp T_2.99;
+T_2.98 ;
+    %mov 9, 2, 10;
+T_2.99 ;
+; Save base=9 wid=10 in lookaside.
+    %ix/get 1, 9, 10;
+    %jmp/1 T_2.100, 4;
+    %load/x1p 9, v0x2526460_0, 1;
+    %jmp T_2.101;
+T_2.100 ;
+    %mov 9, 2, 1;
+T_2.101 ;
+; Save base=9 wid=1 in lookaside.
+    %cmpi/u 9, 0, 1;
+    %mov 9, 4, 1;
+    %and 8, 9, 1;
+    %load/v 9, v0x2526500_0, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.102, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.104, 4;
+    %load/x1p 136, v0x2526350_0, 12;
+    %jmp T_2.105;
+T_2.104 ;
+    %mov 136, 2, 12;
+T_2.105 ;
+; Save base=136 wid=12 in lookaside.
+    %ix/get 3, 136, 12;
+    %load/av 8, v0x2526870, 128;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.106, 4;
+    %load/x1p 136, v0x2526350_0, 10;
+    %jmp T_2.107;
+T_2.106 ;
+    %mov 136, 2, 10;
+T_2.107 ;
+; Save base=136 wid=10 in lookaside.
+    %ix/get 3, 136, 10;
+   %jmp/1 t_26, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526990, 8, 128;
+t_26 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.108, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.110, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.111;
+T_2.110 ;
+    %mov 24, 2, 10;
+T_2.111 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_27, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526990, 8, 16;
+t_27 ;
+T_2.108 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.112, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.114, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.115;
+T_2.114 ;
+    %mov 24, 2, 10;
+T_2.115 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_28, 4;
+   %ix/load 1, 16, 0;
+   %set/av v0x2526990, 8, 16;
+t_28 ;
+T_2.112 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.116, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.118, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.119;
+T_2.118 ;
+    %mov 24, 2, 10;
+T_2.119 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_29, 4;
+   %ix/load 1, 32, 0;
+   %set/av v0x2526990, 8, 16;
+t_29 ;
+T_2.116 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.120, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.122, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.123;
+T_2.122 ;
+    %mov 24, 2, 10;
+T_2.123 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_30, 4;
+   %ix/load 1, 48, 0;
+   %set/av v0x2526990, 8, 16;
+t_30 ;
+T_2.120 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.124, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.126, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.127;
+T_2.126 ;
+    %mov 24, 2, 10;
+T_2.127 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_31, 4;
+   %ix/load 1, 64, 0;
+   %set/av v0x2526990, 8, 16;
+t_31 ;
+T_2.124 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.128, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.130, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.131;
+T_2.130 ;
+    %mov 24, 2, 10;
+T_2.131 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_32, 4;
+   %ix/load 1, 80, 0;
+   %set/av v0x2526990, 8, 16;
+t_32 ;
+T_2.128 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.132, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.134, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.135;
+T_2.134 ;
+    %mov 24, 2, 10;
+T_2.135 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_33, 4;
+   %ix/load 1, 96, 0;
+   %set/av v0x2526990, 8, 16;
+t_33 ;
+T_2.132 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.136, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.138, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.139;
+T_2.138 ;
+    %mov 24, 2, 10;
+T_2.139 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_34, 4;
+   %ix/load 1, 112, 0;
+   %set/av v0x2526990, 8, 16;
+t_34 ;
+T_2.136 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.140, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.141;
+T_2.140 ;
+    %mov 8, 2, 10;
+T_2.141 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 0, 8, 10;
+    %jmp/1 t_35, 4;
+    %set/x0 v0x2526460_0, 1, 1;
+t_35 ;
+    %ix/load 1, 13, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.142, 4;
+    %load/x1p 8, v0x2526350_0, 2;
+    %jmp T_2.143;
+T_2.142 ;
+    %mov 8, 2, 2;
+T_2.143 ;
+; Save base=8 wid=2 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.144, 4;
+    %load/x1p 10, v0x2526350_0, 10;
+    %jmp T_2.145;
+T_2.144 ;
+    %mov 10, 2, 10;
+T_2.145 ;
+; Save base=10 wid=10 in lookaside.
+    %ix/get 3, 10, 10;
+   %jmp/1 t_36, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x25266c0, 8, 2;
+t_36 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.146, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.147;
+T_2.146 ;
+    %mov 8, 2, 10;
+T_2.147 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 0, 8, 10;
+    %jmp/1 t_37, 4;
+    %set/x0 v0x25267f0_0, 1, 1;
+t_37 ;
+T_2.102 ;
+    %ix/load 1, 13, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.148, 4;
+    %load/x1p 8, v0x2526350_0, 2;
+    %jmp T_2.149;
+T_2.148 ;
+    %mov 8, 2, 2;
+T_2.149 ;
+; Save base=8 wid=2 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.150, 4;
+    %load/x1p 12, v0x2526350_0, 10;
+    %jmp T_2.151;
+T_2.150 ;
+    %mov 12, 2, 10;
+T_2.151 ;
+; Save base=12 wid=10 in lookaside.
+    %ix/get 3, 12, 10;
+    %load/av 10, v0x25266c0, 2;
+    %cmp/u 8, 10, 2;
+    %inv 4, 1;
+    %mov 8, 4, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.152, 4;
+    %load/x1p 9, v0x2526350_0, 10;
+    %jmp T_2.153;
+T_2.152 ;
+    %mov 9, 2, 10;
+T_2.153 ;
+; Save base=9 wid=10 in lookaside.
+    %ix/get 1, 9, 10;
+    %jmp/1 T_2.154, 4;
+    %load/x1p 9, v0x2526460_0, 1;
+    %jmp T_2.155;
+T_2.154 ;
+    %mov 9, 2, 1;
+T_2.155 ;
+; Save base=9 wid=1 in lookaside.
+    %and 8, 9, 1;
+    %load/v 9, v0x2526500_0, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.156, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.158, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.159;
+T_2.158 ;
+    %mov 8, 2, 10;
+T_2.159 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/load 0, 0, 0;
+    %set/x0 v0x2526580_0, 8, 10;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.160, 4;
+    %load/x1p 10, v0x2526350_0, 10;
+    %jmp T_2.161;
+T_2.160 ;
+    %mov 10, 2, 10;
+T_2.161 ;
+; Save base=10 wid=10 in lookaside.
+    %ix/get 3, 10, 10;
+    %load/av 8, v0x25266c0, 2;
+    %ix/load 0, 10, 0;
+    %set/x0 v0x2526580_0, 8, 2;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.162, 4;
+    %load/x1p 136, v0x2526350_0, 10;
+    %jmp T_2.163;
+T_2.162 ;
+    %mov 136, 2, 10;
+T_2.163 ;
+; Save base=136 wid=10 in lookaside.
+    %ix/get 3, 136, 10;
+    %load/av 8, v0x2526990, 128;
+    %ix/getv 3, v0x2526580_0;
+   %jmp/1 t_38, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526870, 8, 128;
+t_38 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.164, 4;
+    %load/x1p 136, v0x2526350_0, 12;
+    %jmp T_2.165;
+T_2.164 ;
+    %mov 136, 2, 12;
+T_2.165 ;
+; Save base=136 wid=12 in lookaside.
+    %ix/get 3, 136, 12;
+    %load/av 8, v0x2526870, 128;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.166, 4;
+    %load/x1p 136, v0x2526350_0, 10;
+    %jmp T_2.167;
+T_2.166 ;
+    %mov 136, 2, 10;
+T_2.167 ;
+; Save base=136 wid=10 in lookaside.
+    %ix/get 3, 136, 10;
+   %jmp/1 t_39, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526990, 8, 128;
+t_39 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.168, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.170, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.171;
+T_2.170 ;
+    %mov 24, 2, 10;
+T_2.171 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_40, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526990, 8, 16;
+t_40 ;
+T_2.168 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.172, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.174, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.175;
+T_2.174 ;
+    %mov 24, 2, 10;
+T_2.175 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_41, 4;
+   %ix/load 1, 16, 0;
+   %set/av v0x2526990, 8, 16;
+t_41 ;
+T_2.172 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.176, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.178, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.179;
+T_2.178 ;
+    %mov 24, 2, 10;
+T_2.179 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_42, 4;
+   %ix/load 1, 32, 0;
+   %set/av v0x2526990, 8, 16;
+t_42 ;
+T_2.176 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.180, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.182, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.183;
+T_2.182 ;
+    %mov 24, 2, 10;
+T_2.183 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_43, 4;
+   %ix/load 1, 48, 0;
+   %set/av v0x2526990, 8, 16;
+t_43 ;
+T_2.180 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.184, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.186, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.187;
+T_2.186 ;
+    %mov 24, 2, 10;
+T_2.187 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_44, 4;
+   %ix/load 1, 64, 0;
+   %set/av v0x2526990, 8, 16;
+t_44 ;
+T_2.184 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.188, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.190, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.191;
+T_2.190 ;
+    %mov 24, 2, 10;
+T_2.191 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_45, 4;
+   %ix/load 1, 80, 0;
+   %set/av v0x2526990, 8, 16;
+t_45 ;
+T_2.188 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.192, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.194, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.195;
+T_2.194 ;
+    %mov 24, 2, 10;
+T_2.195 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_46, 4;
+   %ix/load 1, 96, 0;
+   %set/av v0x2526990, 8, 16;
+t_46 ;
+T_2.192 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.196, 4;
+    %load/v 8, v0x2526910_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.198, 4;
+    %load/x1p 24, v0x2526350_0, 10;
+    %jmp T_2.199;
+T_2.198 ;
+    %mov 24, 2, 10;
+T_2.199 ;
+; Save base=24 wid=10 in lookaside.
+    %ix/get 3, 24, 10;
+   %jmp/1 t_47, 4;
+   %ix/load 1, 112, 0;
+   %set/av v0x2526990, 8, 16;
+t_47 ;
+T_2.196 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.200, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.201;
+T_2.200 ;
+    %mov 8, 2, 10;
+T_2.201 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 0, 8, 10;
+    %jmp/1 t_48, 4;
+    %set/x0 v0x2526460_0, 1, 1;
+t_48 ;
+    %ix/load 1, 13, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.202, 4;
+    %load/x1p 8, v0x2526350_0, 2;
+    %jmp T_2.203;
+T_2.202 ;
+    %mov 8, 2, 2;
+T_2.203 ;
+; Save base=8 wid=2 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.204, 4;
+    %load/x1p 10, v0x2526350_0, 10;
+    %jmp T_2.205;
+T_2.204 ;
+    %mov 10, 2, 10;
+T_2.205 ;
+; Save base=10 wid=10 in lookaside.
+    %ix/get 3, 10, 10;
+   %jmp/1 t_49, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x25266c0, 8, 2;
+t_49 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.206, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.207;
+T_2.206 ;
+    %mov 8, 2, 10;
+T_2.207 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 0, 8, 10;
+    %jmp/1 t_50, 4;
+    %set/x0 v0x25267f0_0, 1, 1;
+t_50 ;
+T_2.156 ;
+    %ix/load 1, 13, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.208, 4;
+    %load/x1p 8, v0x2526350_0, 2;
+    %jmp T_2.209;
+T_2.208 ;
+    %mov 8, 2, 2;
+T_2.209 ;
+; Save base=8 wid=2 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.210, 4;
+    %load/x1p 12, v0x2526350_0, 10;
+    %jmp T_2.211;
+T_2.210 ;
+    %mov 12, 2, 10;
+T_2.211 ;
+; Save base=12 wid=10 in lookaside.
+    %ix/get 3, 12, 10;
+    %load/av 10, v0x25266c0, 2;
+    %cmp/u 8, 10, 2;
+    %mov 8, 4, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.212, 4;
+    %load/x1p 9, v0x2526350_0, 10;
+    %jmp T_2.213;
+T_2.212 ;
+    %mov 9, 2, 10;
+T_2.213 ;
+; Save base=9 wid=10 in lookaside.
+    %ix/get 1, 9, 10;
+    %jmp/1 T_2.214, 4;
+    %load/x1p 9, v0x25267f0_0, 1;
+    %jmp T_2.215;
+T_2.214 ;
+    %mov 9, 2, 1;
+T_2.215 ;
+; Save base=9 wid=1 in lookaside.
+    %and 8, 9, 1;
+    %load/v 9, v0x2526500_0, 1;
+    %cmpi/u 9, 0, 1;
+    %mov 9, 4, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.216, 8;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.218, 4;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.220, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.221;
+T_2.220 ;
+    %mov 8, 2, 10;
+T_2.221 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 3, 8, 10;
+    %jmp/1 T_2.222, 4;
+    %ix/get/s 0, 0, 2;
+T_2.222 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.218 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.223, 4;
+    %movi 8, 16, 6;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.225, 4;
+    %load/x1p 14, v0x2526350_0, 10;
+    %jmp T_2.226;
+T_2.225 ;
+    %mov 14, 2, 10;
+T_2.226 ;
+; Save base=14 wid=10 in lookaside.
+    %ix/get 3, 14, 10;
+    %jmp/1 T_2.227, 4;
+    %ix/get/s 0, 8, 6;
+T_2.227 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.223 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.228, 4;
+    %movi 8, 32, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.230, 4;
+    %load/x1p 15, v0x2526350_0, 10;
+    %jmp T_2.231;
+T_2.230 ;
+    %mov 15, 2, 10;
+T_2.231 ;
+; Save base=15 wid=10 in lookaside.
+    %ix/get 3, 15, 10;
+    %jmp/1 T_2.232, 4;
+    %ix/get/s 0, 8, 7;
+T_2.232 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.228 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.233, 4;
+    %movi 8, 48, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.235, 4;
+    %load/x1p 15, v0x2526350_0, 10;
+    %jmp T_2.236;
+T_2.235 ;
+    %mov 15, 2, 10;
+T_2.236 ;
+; Save base=15 wid=10 in lookaside.
+    %ix/get 3, 15, 10;
+    %jmp/1 T_2.237, 4;
+    %ix/get/s 0, 8, 7;
+T_2.237 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.233 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.238, 4;
+    %movi 8, 64, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.240, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.241;
+T_2.240 ;
+    %mov 16, 2, 10;
+T_2.241 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.242, 4;
+    %ix/get/s 0, 8, 8;
+T_2.242 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.238 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.243, 4;
+    %movi 8, 80, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.245, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.246;
+T_2.245 ;
+    %mov 16, 2, 10;
+T_2.246 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.247, 4;
+    %ix/get/s 0, 8, 8;
+T_2.247 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.243 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.248, 4;
+    %movi 8, 96, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.250, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.251;
+T_2.250 ;
+    %mov 16, 2, 10;
+T_2.251 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.252, 4;
+    %ix/get/s 0, 8, 8;
+T_2.252 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.248 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.253, 4;
+    %movi 8, 112, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.255, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.256;
+T_2.255 ;
+    %mov 16, 2, 10;
+T_2.256 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.257, 4;
+    %ix/get/s 0, 8, 8;
+T_2.257 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.253 ;
+T_2.216 ;
+    %ix/load 1, 13, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.258, 4;
+    %load/x1p 8, v0x2526350_0, 2;
+    %jmp T_2.259;
+T_2.258 ;
+    %mov 8, 2, 2;
+T_2.259 ;
+; Save base=8 wid=2 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.260, 4;
+    %load/x1p 12, v0x2526350_0, 10;
+    %jmp T_2.261;
+T_2.260 ;
+    %mov 12, 2, 10;
+T_2.261 ;
+; Save base=12 wid=10 in lookaside.
+    %ix/get 3, 12, 10;
+    %load/av 10, v0x25266c0, 2;
+    %cmp/u 8, 10, 2;
+    %mov 8, 4, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.262, 4;
+    %load/x1p 9, v0x2526350_0, 10;
+    %jmp T_2.263;
+T_2.262 ;
+    %mov 9, 2, 10;
+T_2.263 ;
+; Save base=9 wid=10 in lookaside.
+    %ix/get 1, 9, 10;
+    %jmp/1 T_2.264, 4;
+    %load/x1p 9, v0x25267f0_0, 1;
+    %jmp T_2.265;
+T_2.264 ;
+    %mov 9, 2, 1;
+T_2.265 ;
+; Save base=9 wid=1 in lookaside.
+    %cmpi/u 9, 0, 1;
+    %mov 9, 4, 1;
+    %and 8, 9, 1;
+    %load/v 9, v0x2526500_0, 1;
+    %cmpi/u 9, 0, 1;
+    %mov 9, 4, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.266, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.268, 4;
+    %load/x1p 136, v0x2526350_0, 12;
+    %jmp T_2.269;
+T_2.268 ;
+    %mov 136, 2, 12;
+T_2.269 ;
+; Save base=136 wid=12 in lookaside.
+    %ix/get 3, 136, 12;
+    %load/av 8, v0x2526870, 128;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.270, 4;
+    %load/x1p 136, v0x2526350_0, 10;
+    %jmp T_2.271;
+T_2.270 ;
+    %mov 136, 2, 10;
+T_2.271 ;
+; Save base=136 wid=10 in lookaside.
+    %ix/get 3, 136, 10;
+   %jmp/1 t_51, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526990, 8, 128;
+t_51 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.272, 4;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.274, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.275;
+T_2.274 ;
+    %mov 8, 2, 10;
+T_2.275 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 3, 8, 10;
+    %jmp/1 T_2.276, 4;
+    %ix/get/s 0, 0, 2;
+T_2.276 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.272 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.277, 4;
+    %movi 8, 16, 6;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.279, 4;
+    %load/x1p 14, v0x2526350_0, 10;
+    %jmp T_2.280;
+T_2.279 ;
+    %mov 14, 2, 10;
+T_2.280 ;
+; Save base=14 wid=10 in lookaside.
+    %ix/get 3, 14, 10;
+    %jmp/1 T_2.281, 4;
+    %ix/get/s 0, 8, 6;
+T_2.281 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.277 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.282, 4;
+    %movi 8, 32, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.284, 4;
+    %load/x1p 15, v0x2526350_0, 10;
+    %jmp T_2.285;
+T_2.284 ;
+    %mov 15, 2, 10;
+T_2.285 ;
+; Save base=15 wid=10 in lookaside.
+    %ix/get 3, 15, 10;
+    %jmp/1 T_2.286, 4;
+    %ix/get/s 0, 8, 7;
+T_2.286 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.282 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.287, 4;
+    %movi 8, 48, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.289, 4;
+    %load/x1p 15, v0x2526350_0, 10;
+    %jmp T_2.290;
+T_2.289 ;
+    %mov 15, 2, 10;
+T_2.290 ;
+; Save base=15 wid=10 in lookaside.
+    %ix/get 3, 15, 10;
+    %jmp/1 T_2.291, 4;
+    %ix/get/s 0, 8, 7;
+T_2.291 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.287 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.292, 4;
+    %movi 8, 64, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.294, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.295;
+T_2.294 ;
+    %mov 16, 2, 10;
+T_2.295 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.296, 4;
+    %ix/get/s 0, 8, 8;
+T_2.296 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.292 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.297, 4;
+    %movi 8, 80, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.299, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.300;
+T_2.299 ;
+    %mov 16, 2, 10;
+T_2.300 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.301, 4;
+    %ix/get/s 0, 8, 8;
+T_2.301 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.297 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.302, 4;
+    %movi 8, 96, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.304, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.305;
+T_2.304 ;
+    %mov 16, 2, 10;
+T_2.305 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.306, 4;
+    %ix/get/s 0, 8, 8;
+T_2.306 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.302 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.307, 4;
+    %movi 8, 112, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.309, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.310;
+T_2.309 ;
+    %mov 16, 2, 10;
+T_2.310 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.311, 4;
+    %ix/get/s 0, 8, 8;
+T_2.311 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.307 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.312, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.313;
+T_2.312 ;
+    %mov 8, 2, 10;
+T_2.313 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 0, 8, 10;
+    %jmp/1 t_52, 4;
+    %set/x0 v0x25267f0_0, 1, 1;
+t_52 ;
+T_2.266 ;
+    %ix/load 1, 13, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.314, 4;
+    %load/x1p 8, v0x2526350_0, 2;
+    %jmp T_2.315;
+T_2.314 ;
+    %mov 8, 2, 2;
+T_2.315 ;
+; Save base=8 wid=2 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.316, 4;
+    %load/x1p 12, v0x2526350_0, 10;
+    %jmp T_2.317;
+T_2.316 ;
+    %mov 12, 2, 10;
+T_2.317 ;
+; Save base=12 wid=10 in lookaside.
+    %ix/get 3, 12, 10;
+    %load/av 10, v0x25266c0, 2;
+    %cmp/u 8, 10, 2;
+    %inv 4, 1;
+    %mov 8, 4, 1;
+    %load/v 9, v0x2526500_0, 1;
+    %cmpi/u 9, 0, 1;
+    %mov 9, 4, 1;
+    %and 8, 9, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.318, 4;
+    %load/x1p 9, v0x2526350_0, 10;
+    %jmp T_2.319;
+T_2.318 ;
+    %mov 9, 2, 10;
+T_2.319 ;
+; Save base=9 wid=10 in lookaside.
+    %ix/get 1, 9, 10;
+    %jmp/1 T_2.320, 4;
+    %load/x1p 9, v0x2526460_0, 1;
+    %jmp T_2.321;
+T_2.320 ;
+    %mov 9, 2, 1;
+T_2.321 ;
+; Save base=9 wid=1 in lookaside.
+    %cmpi/u 9, 0, 1;
+    %mov 9, 4, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.322, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.324, 4;
+    %load/x1p 136, v0x2526350_0, 12;
+    %jmp T_2.325;
+T_2.324 ;
+    %mov 136, 2, 12;
+T_2.325 ;
+; Save base=136 wid=12 in lookaside.
+    %ix/get 3, 136, 12;
+    %load/av 8, v0x2526870, 128;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.326, 4;
+    %load/x1p 136, v0x2526350_0, 10;
+    %jmp T_2.327;
+T_2.326 ;
+    %mov 136, 2, 10;
+T_2.327 ;
+; Save base=136 wid=10 in lookaside.
+    %ix/get 3, 136, 10;
+   %jmp/1 t_53, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526990, 8, 128;
+t_53 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.328, 4;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.330, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.331;
+T_2.330 ;
+    %mov 8, 2, 10;
+T_2.331 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 3, 8, 10;
+    %jmp/1 T_2.332, 4;
+    %ix/get/s 0, 0, 2;
+T_2.332 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.328 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.333, 4;
+    %movi 8, 16, 6;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.335, 4;
+    %load/x1p 14, v0x2526350_0, 10;
+    %jmp T_2.336;
+T_2.335 ;
+    %mov 14, 2, 10;
+T_2.336 ;
+; Save base=14 wid=10 in lookaside.
+    %ix/get 3, 14, 10;
+    %jmp/1 T_2.337, 4;
+    %ix/get/s 0, 8, 6;
+T_2.337 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.333 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.338, 4;
+    %movi 8, 32, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.340, 4;
+    %load/x1p 15, v0x2526350_0, 10;
+    %jmp T_2.341;
+T_2.340 ;
+    %mov 15, 2, 10;
+T_2.341 ;
+; Save base=15 wid=10 in lookaside.
+    %ix/get 3, 15, 10;
+    %jmp/1 T_2.342, 4;
+    %ix/get/s 0, 8, 7;
+T_2.342 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.338 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.343, 4;
+    %movi 8, 48, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.345, 4;
+    %load/x1p 15, v0x2526350_0, 10;
+    %jmp T_2.346;
+T_2.345 ;
+    %mov 15, 2, 10;
+T_2.346 ;
+; Save base=15 wid=10 in lookaside.
+    %ix/get 3, 15, 10;
+    %jmp/1 T_2.347, 4;
+    %ix/get/s 0, 8, 7;
+T_2.347 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.343 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.348, 4;
+    %movi 8, 64, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.350, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.351;
+T_2.350 ;
+    %mov 16, 2, 10;
+T_2.351 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.352, 4;
+    %ix/get/s 0, 8, 8;
+T_2.352 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.348 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.353, 4;
+    %movi 8, 80, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.355, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.356;
+T_2.355 ;
+    %mov 16, 2, 10;
+T_2.356 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.357, 4;
+    %ix/get/s 0, 8, 8;
+T_2.357 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.353 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.358, 4;
+    %movi 8, 96, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.360, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.361;
+T_2.360 ;
+    %mov 16, 2, 10;
+T_2.361 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.362, 4;
+    %ix/get/s 0, 8, 8;
+T_2.362 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.358 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.363, 4;
+    %movi 8, 112, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.365, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.366;
+T_2.365 ;
+    %mov 16, 2, 10;
+T_2.366 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.367, 4;
+    %ix/get/s 0, 8, 8;
+T_2.367 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.363 ;
+    %ix/load 1, 13, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.368, 4;
+    %load/x1p 8, v0x2526350_0, 2;
+    %jmp T_2.369;
+T_2.368 ;
+    %mov 8, 2, 2;
+T_2.369 ;
+; Save base=8 wid=2 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.370, 4;
+    %load/x1p 10, v0x2526350_0, 10;
+    %jmp T_2.371;
+T_2.370 ;
+    %mov 10, 2, 10;
+T_2.371 ;
+; Save base=10 wid=10 in lookaside.
+    %ix/get 3, 10, 10;
+   %jmp/1 t_54, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x25266c0, 8, 2;
+t_54 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.372, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.373;
+T_2.372 ;
+    %mov 8, 2, 10;
+T_2.373 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 0, 8, 10;
+    %jmp/1 t_55, 4;
+    %set/x0 v0x25267f0_0, 1, 1;
+t_55 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.374, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.375;
+T_2.374 ;
+    %mov 8, 2, 10;
+T_2.375 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 0, 8, 10;
+    %jmp/1 t_56, 4;
+    %set/x0 v0x2526460_0, 0, 1;
+t_56 ;
+T_2.322 ;
+    %ix/load 1, 13, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.376, 4;
+    %load/x1p 8, v0x2526350_0, 2;
+    %jmp T_2.377;
+T_2.376 ;
+    %mov 8, 2, 2;
+T_2.377 ;
+; Save base=8 wid=2 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.378, 4;
+    %load/x1p 12, v0x2526350_0, 10;
+    %jmp T_2.379;
+T_2.378 ;
+    %mov 12, 2, 10;
+T_2.379 ;
+; Save base=12 wid=10 in lookaside.
+    %ix/get 3, 12, 10;
+    %load/av 10, v0x25266c0, 2;
+    %cmp/u 8, 10, 2;
+    %inv 4, 1;
+    %mov 8, 4, 1;
+    %load/v 9, v0x2526500_0, 1;
+    %cmpi/u 9, 0, 1;
+    %mov 9, 4, 1;
+    %and 8, 9, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.380, 4;
+    %load/x1p 9, v0x2526350_0, 10;
+    %jmp T_2.381;
+T_2.380 ;
+    %mov 9, 2, 10;
+T_2.381 ;
+; Save base=9 wid=10 in lookaside.
+    %ix/get 1, 9, 10;
+    %jmp/1 T_2.382, 4;
+    %load/x1p 9, v0x2526460_0, 1;
+    %jmp T_2.383;
+T_2.382 ;
+    %mov 9, 2, 1;
+T_2.383 ;
+; Save base=9 wid=1 in lookaside.
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.384, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.386, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.387;
+T_2.386 ;
+    %mov 8, 2, 10;
+T_2.387 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/load 0, 0, 0;
+    %set/x0 v0x2526580_0, 8, 10;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.388, 4;
+    %load/x1p 10, v0x2526350_0, 10;
+    %jmp T_2.389;
+T_2.388 ;
+    %mov 10, 2, 10;
+T_2.389 ;
+; Save base=10 wid=10 in lookaside.
+    %ix/get 3, 10, 10;
+    %load/av 8, v0x25266c0, 2;
+    %ix/load 0, 10, 0;
+    %set/x0 v0x2526580_0, 8, 2;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.390, 4;
+    %load/x1p 136, v0x2526350_0, 10;
+    %jmp T_2.391;
+T_2.390 ;
+    %mov 136, 2, 10;
+T_2.391 ;
+; Save base=136 wid=10 in lookaside.
+    %ix/get 3, 136, 10;
+    %load/av 8, v0x2526990, 128;
+    %ix/getv 3, v0x2526580_0;
+   %jmp/1 t_57, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526870, 8, 128;
+t_57 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.392, 4;
+    %load/x1p 136, v0x2526350_0, 12;
+    %jmp T_2.393;
+T_2.392 ;
+    %mov 136, 2, 12;
+T_2.393 ;
+; Save base=136 wid=12 in lookaside.
+    %ix/get 3, 136, 12;
+    %load/av 8, v0x2526870, 128;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.394, 4;
+    %load/x1p 136, v0x2526350_0, 10;
+    %jmp T_2.395;
+T_2.394 ;
+    %mov 136, 2, 10;
+T_2.395 ;
+; Save base=136 wid=10 in lookaside.
+    %ix/get 3, 136, 10;
+   %jmp/1 t_58, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526990, 8, 128;
+t_58 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.396, 4;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.398, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.399;
+T_2.398 ;
+    %mov 8, 2, 10;
+T_2.399 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 3, 8, 10;
+    %jmp/1 T_2.400, 4;
+    %ix/get/s 0, 0, 2;
+T_2.400 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.396 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.401, 4;
+    %movi 8, 16, 6;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.403, 4;
+    %load/x1p 14, v0x2526350_0, 10;
+    %jmp T_2.404;
+T_2.403 ;
+    %mov 14, 2, 10;
+T_2.404 ;
+; Save base=14 wid=10 in lookaside.
+    %ix/get 3, 14, 10;
+    %jmp/1 T_2.405, 4;
+    %ix/get/s 0, 8, 6;
+T_2.405 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.401 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.406, 4;
+    %movi 8, 32, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.408, 4;
+    %load/x1p 15, v0x2526350_0, 10;
+    %jmp T_2.409;
+T_2.408 ;
+    %mov 15, 2, 10;
+T_2.409 ;
+; Save base=15 wid=10 in lookaside.
+    %ix/get 3, 15, 10;
+    %jmp/1 T_2.410, 4;
+    %ix/get/s 0, 8, 7;
+T_2.410 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.406 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.411, 4;
+    %movi 8, 48, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.413, 4;
+    %load/x1p 15, v0x2526350_0, 10;
+    %jmp T_2.414;
+T_2.413 ;
+    %mov 15, 2, 10;
+T_2.414 ;
+; Save base=15 wid=10 in lookaside.
+    %ix/get 3, 15, 10;
+    %jmp/1 T_2.415, 4;
+    %ix/get/s 0, 8, 7;
+T_2.415 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.411 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.416, 4;
+    %movi 8, 64, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.418, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.419;
+T_2.418 ;
+    %mov 16, 2, 10;
+T_2.419 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.420, 4;
+    %ix/get/s 0, 8, 8;
+T_2.420 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.416 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.421, 4;
+    %movi 8, 80, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.423, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.424;
+T_2.423 ;
+    %mov 16, 2, 10;
+T_2.424 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.425, 4;
+    %ix/get/s 0, 8, 8;
+T_2.425 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.421 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.426, 4;
+    %movi 8, 96, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.428, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.429;
+T_2.428 ;
+    %mov 16, 2, 10;
+T_2.429 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.430, 4;
+    %ix/get/s 0, 8, 8;
+T_2.430 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.426 ;
+    %load/v 8, v0x2526350_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.431, 4;
+    %movi 8, 112, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.433, 4;
+    %load/x1p 16, v0x2526350_0, 10;
+    %jmp T_2.434;
+T_2.433 ;
+    %mov 16, 2, 10;
+T_2.434 ;
+; Save base=16 wid=10 in lookaside.
+    %ix/get 3, 16, 10;
+    %jmp/1 T_2.435, 4;
+    %ix/get/s 0, 8, 8;
+T_2.435 ;
+    %load/avx.p 8, v0x2526990, 0;
+    %load/avx.p 9, v0x2526990, 0;
+    %load/avx.p 10, v0x2526990, 0;
+    %load/avx.p 11, v0x2526990, 0;
+    %load/avx.p 12, v0x2526990, 0;
+    %load/avx.p 13, v0x2526990, 0;
+    %load/avx.p 14, v0x2526990, 0;
+    %load/avx.p 15, v0x2526990, 0;
+    %load/avx.p 16, v0x2526990, 0;
+    %load/avx.p 17, v0x2526990, 0;
+    %load/avx.p 18, v0x2526990, 0;
+    %load/avx.p 19, v0x2526990, 0;
+    %load/avx.p 20, v0x2526990, 0;
+    %load/avx.p 21, v0x2526990, 0;
+    %load/avx.p 22, v0x2526990, 0;
+    %load/avx.p 23, v0x2526990, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2526620_0, 8, 16;
+T_2.431 ;
+    %ix/load 1, 13, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.436, 4;
+    %load/x1p 8, v0x2526350_0, 2;
+    %jmp T_2.437;
+T_2.436 ;
+    %mov 8, 2, 2;
+T_2.437 ;
+; Save base=8 wid=2 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.438, 4;
+    %load/x1p 10, v0x2526350_0, 10;
+    %jmp T_2.439;
+T_2.438 ;
+    %mov 10, 2, 10;
+T_2.439 ;
+; Save base=10 wid=10 in lookaside.
+    %ix/get 3, 10, 10;
+   %jmp/1 t_59, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x25266c0, 8, 2;
+t_59 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.440, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.441;
+T_2.440 ;
+    %mov 8, 2, 10;
+T_2.441 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 0, 8, 10;
+    %jmp/1 t_60, 4;
+    %set/x0 v0x25267f0_0, 1, 1;
+t_60 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.442, 4;
+    %load/x1p 8, v0x2526350_0, 10;
+    %jmp T_2.443;
+T_2.442 ;
+    %mov 8, 2, 10;
+T_2.443 ;
+; Save base=8 wid=10 in lookaside.
+    %ix/get 0, 8, 10;
+    %jmp/1 t_61, 4;
+    %set/x0 v0x2526460_0, 0, 1;
+t_61 ;
+T_2.384 ;
+    %ix/load 1, 14, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.444, 4;
+    %load/x1p 8, v0x2526110_0, 1;
+    %jmp T_2.445;
+T_2.444 ;
+    %mov 8, 2, 1;
+T_2.445 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.446, 4;
+    %load/x1p 9, v0x2526110_0, 11;
+    %jmp T_2.447;
+T_2.446 ;
+    %mov 9, 2, 11;
+T_2.447 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.448, 4;
+    %load/x1p 9, v0x2525ea0_0, 1;
+    %jmp T_2.449;
+T_2.448 ;
+    %mov 9, 2, 1;
+T_2.449 ;
+; Save base=9 wid=1 in lookaside.
+    %cmp/u 8, 9, 1;
+    %mov 8, 4, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.450, 4;
+    %load/x1p 9, v0x2526110_0, 11;
+    %jmp T_2.451;
+T_2.450 ;
+    %mov 9, 2, 11;
+T_2.451 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.452, 4;
+    %load/x1p 9, v0x2526020_0, 1;
+    %jmp T_2.453;
+T_2.452 ;
+    %mov 9, 2, 1;
+T_2.453 ;
+; Save base=9 wid=1 in lookaside.
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.454, 8;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.456, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.458, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.459;
+T_2.458 ;
+    %mov 24, 2, 11;
+T_2.459 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_62, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2525c30, 8, 16;
+t_62 ;
+T_2.456 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.460, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.462, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.463;
+T_2.462 ;
+    %mov 24, 2, 11;
+T_2.463 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_63, 4;
+   %ix/load 1, 16, 0;
+   %set/av v0x2525c30, 8, 16;
+t_63 ;
+T_2.460 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.464, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.466, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.467;
+T_2.466 ;
+    %mov 24, 2, 11;
+T_2.467 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_64, 4;
+   %ix/load 1, 32, 0;
+   %set/av v0x2525c30, 8, 16;
+t_64 ;
+T_2.464 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.468, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.470, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.471;
+T_2.470 ;
+    %mov 24, 2, 11;
+T_2.471 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_65, 4;
+   %ix/load 1, 48, 0;
+   %set/av v0x2525c30, 8, 16;
+t_65 ;
+T_2.468 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.472, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.474, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.475;
+T_2.474 ;
+    %mov 24, 2, 11;
+T_2.475 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_66, 4;
+   %ix/load 1, 64, 0;
+   %set/av v0x2525c30, 8, 16;
+t_66 ;
+T_2.472 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.476, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.478, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.479;
+T_2.478 ;
+    %mov 24, 2, 11;
+T_2.479 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_67, 4;
+   %ix/load 1, 80, 0;
+   %set/av v0x2525c30, 8, 16;
+t_67 ;
+T_2.476 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.480, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.482, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.483;
+T_2.482 ;
+    %mov 24, 2, 11;
+T_2.483 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_68, 4;
+   %ix/load 1, 96, 0;
+   %set/av v0x2525c30, 8, 16;
+t_68 ;
+T_2.480 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.484, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.486, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.487;
+T_2.486 ;
+    %mov 24, 2, 11;
+T_2.487 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_69, 4;
+   %ix/load 1, 112, 0;
+   %set/av v0x2525c30, 8, 16;
+t_69 ;
+T_2.484 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.488, 4;
+    %load/x1p 8, v0x2526110_0, 11;
+    %jmp T_2.489;
+T_2.488 ;
+    %mov 8, 2, 11;
+T_2.489 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 0, 8, 11;
+    %jmp/1 t_70, 4;
+    %set/x0 v0x2525cb0_0, 1, 1;
+t_70 ;
+T_2.454 ;
+    %ix/load 1, 14, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.490, 4;
+    %load/x1p 8, v0x2526110_0, 1;
+    %jmp T_2.491;
+T_2.490 ;
+    %mov 8, 2, 1;
+T_2.491 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.492, 4;
+    %load/x1p 9, v0x2526110_0, 11;
+    %jmp T_2.493;
+T_2.492 ;
+    %mov 9, 2, 11;
+T_2.493 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.494, 4;
+    %load/x1p 9, v0x2525ea0_0, 1;
+    %jmp T_2.495;
+T_2.494 ;
+    %mov 9, 2, 1;
+T_2.495 ;
+; Save base=9 wid=1 in lookaside.
+    %cmp/u 8, 9, 1;
+    %mov 8, 4, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.496, 4;
+    %load/x1p 9, v0x2526110_0, 11;
+    %jmp T_2.497;
+T_2.496 ;
+    %mov 9, 2, 11;
+T_2.497 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.498, 4;
+    %load/x1p 9, v0x2526020_0, 1;
+    %jmp T_2.499;
+T_2.498 ;
+    %mov 9, 2, 1;
+T_2.499 ;
+; Save base=9 wid=1 in lookaside.
+    %cmpi/u 9, 0, 1;
+    %mov 9, 4, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.500, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.502, 4;
+    %load/x1p 136, v0x2526110_0, 12;
+    %jmp T_2.503;
+T_2.502 ;
+    %mov 136, 2, 12;
+T_2.503 ;
+; Save base=136 wid=12 in lookaside.
+    %ix/get 3, 136, 12;
+    %load/av 8, v0x2526870, 128;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.504, 4;
+    %load/x1p 136, v0x2526110_0, 11;
+    %jmp T_2.505;
+T_2.504 ;
+    %mov 136, 2, 11;
+T_2.505 ;
+; Save base=136 wid=11 in lookaside.
+    %ix/get 3, 136, 11;
+   %jmp/1 t_71, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2525c30, 8, 128;
+t_71 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.506, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.508, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.509;
+T_2.508 ;
+    %mov 24, 2, 11;
+T_2.509 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_72, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2525c30, 8, 16;
+t_72 ;
+T_2.506 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.510, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.512, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.513;
+T_2.512 ;
+    %mov 24, 2, 11;
+T_2.513 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_73, 4;
+   %ix/load 1, 16, 0;
+   %set/av v0x2525c30, 8, 16;
+t_73 ;
+T_2.510 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.514, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.516, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.517;
+T_2.516 ;
+    %mov 24, 2, 11;
+T_2.517 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_74, 4;
+   %ix/load 1, 32, 0;
+   %set/av v0x2525c30, 8, 16;
+t_74 ;
+T_2.514 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.518, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.520, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.521;
+T_2.520 ;
+    %mov 24, 2, 11;
+T_2.521 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_75, 4;
+   %ix/load 1, 48, 0;
+   %set/av v0x2525c30, 8, 16;
+t_75 ;
+T_2.518 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.522, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.524, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.525;
+T_2.524 ;
+    %mov 24, 2, 11;
+T_2.525 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_76, 4;
+   %ix/load 1, 64, 0;
+   %set/av v0x2525c30, 8, 16;
+t_76 ;
+T_2.522 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.526, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.528, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.529;
+T_2.528 ;
+    %mov 24, 2, 11;
+T_2.529 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_77, 4;
+   %ix/load 1, 80, 0;
+   %set/av v0x2525c30, 8, 16;
+t_77 ;
+T_2.526 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.530, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.532, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.533;
+T_2.532 ;
+    %mov 24, 2, 11;
+T_2.533 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_78, 4;
+   %ix/load 1, 96, 0;
+   %set/av v0x2525c30, 8, 16;
+t_78 ;
+T_2.530 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.534, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.536, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.537;
+T_2.536 ;
+    %mov 24, 2, 11;
+T_2.537 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_79, 4;
+   %ix/load 1, 112, 0;
+   %set/av v0x2525c30, 8, 16;
+t_79 ;
+T_2.534 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.538, 4;
+    %load/x1p 8, v0x2526110_0, 11;
+    %jmp T_2.539;
+T_2.538 ;
+    %mov 8, 2, 11;
+T_2.539 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 0, 8, 11;
+    %jmp/1 t_80, 4;
+    %set/x0 v0x2525cb0_0, 1, 1;
+t_80 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.540, 4;
+    %load/x1p 8, v0x2526110_0, 11;
+    %jmp T_2.541;
+T_2.540 ;
+    %mov 8, 2, 11;
+T_2.541 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 0, 8, 11;
+    %jmp/1 t_81, 4;
+    %set/x0 v0x2526020_0, 1, 1;
+t_81 ;
+T_2.500 ;
+    %ix/load 1, 14, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.542, 4;
+    %load/x1p 8, v0x2526110_0, 1;
+    %jmp T_2.543;
+T_2.542 ;
+    %mov 8, 2, 1;
+T_2.543 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.544, 4;
+    %load/x1p 9, v0x2526110_0, 11;
+    %jmp T_2.545;
+T_2.544 ;
+    %mov 9, 2, 11;
+T_2.545 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.546, 4;
+    %load/x1p 9, v0x2525ea0_0, 1;
+    %jmp T_2.547;
+T_2.546 ;
+    %mov 9, 2, 1;
+T_2.547 ;
+; Save base=9 wid=1 in lookaside.
+    %cmp/u 8, 9, 1;
+    %inv 4, 1;
+    %mov 8, 4, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.548, 4;
+    %load/x1p 9, v0x2526110_0, 11;
+    %jmp T_2.549;
+T_2.548 ;
+    %mov 9, 2, 11;
+T_2.549 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.550, 4;
+    %load/x1p 9, v0x2525cb0_0, 1;
+    %jmp T_2.551;
+T_2.550 ;
+    %mov 9, 2, 1;
+T_2.551 ;
+; Save base=9 wid=1 in lookaside.
+    %cmpi/u 9, 0, 1;
+    %mov 9, 4, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.552, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.554, 4;
+    %load/x1p 136, v0x2526110_0, 12;
+    %jmp T_2.555;
+T_2.554 ;
+    %mov 136, 2, 12;
+T_2.555 ;
+; Save base=136 wid=12 in lookaside.
+    %ix/get 3, 136, 12;
+    %load/av 8, v0x2526870, 128;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.556, 4;
+    %load/x1p 136, v0x2526110_0, 11;
+    %jmp T_2.557;
+T_2.556 ;
+    %mov 136, 2, 11;
+T_2.557 ;
+; Save base=136 wid=11 in lookaside.
+    %ix/get 3, 136, 11;
+   %jmp/1 t_82, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2525c30, 8, 128;
+t_82 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.558, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.560, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.561;
+T_2.560 ;
+    %mov 24, 2, 11;
+T_2.561 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_83, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2525c30, 8, 16;
+t_83 ;
+T_2.558 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.562, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.564, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.565;
+T_2.564 ;
+    %mov 24, 2, 11;
+T_2.565 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_84, 4;
+   %ix/load 1, 16, 0;
+   %set/av v0x2525c30, 8, 16;
+t_84 ;
+T_2.562 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.566, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.568, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.569;
+T_2.568 ;
+    %mov 24, 2, 11;
+T_2.569 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_85, 4;
+   %ix/load 1, 32, 0;
+   %set/av v0x2525c30, 8, 16;
+t_85 ;
+T_2.566 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.570, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.572, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.573;
+T_2.572 ;
+    %mov 24, 2, 11;
+T_2.573 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_86, 4;
+   %ix/load 1, 48, 0;
+   %set/av v0x2525c30, 8, 16;
+t_86 ;
+T_2.570 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.574, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.576, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.577;
+T_2.576 ;
+    %mov 24, 2, 11;
+T_2.577 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_87, 4;
+   %ix/load 1, 64, 0;
+   %set/av v0x2525c30, 8, 16;
+t_87 ;
+T_2.574 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.578, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.580, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.581;
+T_2.580 ;
+    %mov 24, 2, 11;
+T_2.581 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_88, 4;
+   %ix/load 1, 80, 0;
+   %set/av v0x2525c30, 8, 16;
+t_88 ;
+T_2.578 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.582, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.584, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.585;
+T_2.584 ;
+    %mov 24, 2, 11;
+T_2.585 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_89, 4;
+   %ix/load 1, 96, 0;
+   %set/av v0x2525c30, 8, 16;
+t_89 ;
+T_2.582 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.586, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.588, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.589;
+T_2.588 ;
+    %mov 24, 2, 11;
+T_2.589 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_90, 4;
+   %ix/load 1, 112, 0;
+   %set/av v0x2525c30, 8, 16;
+t_90 ;
+T_2.586 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.590, 4;
+    %load/x1p 8, v0x2526110_0, 11;
+    %jmp T_2.591;
+T_2.590 ;
+    %mov 8, 2, 11;
+T_2.591 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 0, 8, 11;
+    %jmp/1 t_91, 4;
+    %set/x0 v0x2525cb0_0, 1, 1;
+t_91 ;
+    %ix/load 1, 14, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.592, 4;
+    %load/x1p 8, v0x2526110_0, 1;
+    %jmp T_2.593;
+T_2.592 ;
+    %mov 8, 2, 1;
+T_2.593 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.594, 4;
+    %load/x1p 9, v0x2526110_0, 11;
+    %jmp T_2.595;
+T_2.594 ;
+    %mov 9, 2, 11;
+T_2.595 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 0, 9, 11;
+    %jmp/1 t_92, 4;
+    %set/x0 v0x2525ea0_0, 8, 1;
+t_92 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.596, 4;
+    %load/x1p 8, v0x2526110_0, 11;
+    %jmp T_2.597;
+T_2.596 ;
+    %mov 8, 2, 11;
+T_2.597 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 0, 8, 11;
+    %jmp/1 t_93, 4;
+    %set/x0 v0x2526020_0, 1, 1;
+t_93 ;
+T_2.552 ;
+    %ix/load 1, 14, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.598, 4;
+    %load/x1p 8, v0x2526110_0, 1;
+    %jmp T_2.599;
+T_2.598 ;
+    %mov 8, 2, 1;
+T_2.599 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.600, 4;
+    %load/x1p 9, v0x2526110_0, 11;
+    %jmp T_2.601;
+T_2.600 ;
+    %mov 9, 2, 11;
+T_2.601 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.602, 4;
+    %load/x1p 9, v0x2525ea0_0, 1;
+    %jmp T_2.603;
+T_2.602 ;
+    %mov 9, 2, 1;
+T_2.603 ;
+; Save base=9 wid=1 in lookaside.
+    %cmp/u 8, 9, 1;
+    %inv 4, 1;
+    %mov 8, 4, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.604, 4;
+    %load/x1p 9, v0x2526110_0, 11;
+    %jmp T_2.605;
+T_2.604 ;
+    %mov 9, 2, 11;
+T_2.605 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.606, 4;
+    %load/x1p 9, v0x2525cb0_0, 1;
+    %jmp T_2.607;
+T_2.606 ;
+    %mov 9, 2, 1;
+T_2.607 ;
+; Save base=9 wid=1 in lookaside.
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.608, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.610, 4;
+    %load/x1p 8, v0x2526110_0, 11;
+    %jmp T_2.611;
+T_2.610 ;
+    %mov 8, 2, 11;
+T_2.611 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/load 0, 0, 0;
+    %set/x0 v0x2525f80_0, 8, 11;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.612, 4;
+    %load/x1p 8, v0x2526110_0, 11;
+    %jmp T_2.613;
+T_2.612 ;
+    %mov 8, 2, 11;
+T_2.613 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 1, 8, 11;
+    %jmp/1 T_2.614, 4;
+    %load/x1p 8, v0x2525ea0_0, 1;
+    %jmp T_2.615;
+T_2.614 ;
+    %mov 8, 2, 1;
+T_2.615 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 0, 11, 0;
+    %set/x0 v0x2525f80_0, 8, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.616, 4;
+    %load/x1p 136, v0x2526110_0, 11;
+    %jmp T_2.617;
+T_2.616 ;
+    %mov 136, 2, 11;
+T_2.617 ;
+; Save base=136 wid=11 in lookaside.
+    %ix/get 3, 136, 11;
+    %load/av 8, v0x2525c30, 128;
+    %ix/getv 3, v0x2525f80_0;
+   %jmp/1 t_94, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526870, 8, 128;
+t_94 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.618, 4;
+    %load/x1p 136, v0x2526110_0, 12;
+    %jmp T_2.619;
+T_2.618 ;
+    %mov 136, 2, 12;
+T_2.619 ;
+; Save base=136 wid=12 in lookaside.
+    %ix/get 3, 136, 12;
+    %load/av 8, v0x2526870, 128;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.620, 4;
+    %load/x1p 136, v0x2526110_0, 11;
+    %jmp T_2.621;
+T_2.620 ;
+    %mov 136, 2, 11;
+T_2.621 ;
+; Save base=136 wid=11 in lookaside.
+    %ix/get 3, 136, 11;
+   %jmp/1 t_95, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2525c30, 8, 128;
+t_95 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.622, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.624, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.625;
+T_2.624 ;
+    %mov 24, 2, 11;
+T_2.625 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_96, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2525c30, 8, 16;
+t_96 ;
+T_2.622 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.626, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.628, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.629;
+T_2.628 ;
+    %mov 24, 2, 11;
+T_2.629 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_97, 4;
+   %ix/load 1, 16, 0;
+   %set/av v0x2525c30, 8, 16;
+t_97 ;
+T_2.626 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.630, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.632, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.633;
+T_2.632 ;
+    %mov 24, 2, 11;
+T_2.633 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_98, 4;
+   %ix/load 1, 32, 0;
+   %set/av v0x2525c30, 8, 16;
+t_98 ;
+T_2.630 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.634, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.636, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.637;
+T_2.636 ;
+    %mov 24, 2, 11;
+T_2.637 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_99, 4;
+   %ix/load 1, 48, 0;
+   %set/av v0x2525c30, 8, 16;
+t_99 ;
+T_2.634 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.638, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.640, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.641;
+T_2.640 ;
+    %mov 24, 2, 11;
+T_2.641 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_100, 4;
+   %ix/load 1, 64, 0;
+   %set/av v0x2525c30, 8, 16;
+t_100 ;
+T_2.638 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.642, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.644, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.645;
+T_2.644 ;
+    %mov 24, 2, 11;
+T_2.645 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_101, 4;
+   %ix/load 1, 80, 0;
+   %set/av v0x2525c30, 8, 16;
+t_101 ;
+T_2.642 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.646, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.648, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.649;
+T_2.648 ;
+    %mov 24, 2, 11;
+T_2.649 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_102, 4;
+   %ix/load 1, 96, 0;
+   %set/av v0x2525c30, 8, 16;
+t_102 ;
+T_2.646 ;
+    %load/v 8, v0x2526110_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.650, 4;
+    %load/v 8, v0x25261b0_0, 16;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.652, 4;
+    %load/x1p 24, v0x2526110_0, 11;
+    %jmp T_2.653;
+T_2.652 ;
+    %mov 24, 2, 11;
+T_2.653 ;
+; Save base=24 wid=11 in lookaside.
+    %ix/get 3, 24, 11;
+   %jmp/1 t_103, 4;
+   %ix/load 1, 112, 0;
+   %set/av v0x2525c30, 8, 16;
+t_103 ;
+T_2.650 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.654, 4;
+    %load/x1p 8, v0x2526110_0, 11;
+    %jmp T_2.655;
+T_2.654 ;
+    %mov 8, 2, 11;
+T_2.655 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 0, 8, 11;
+    %jmp/1 t_104, 4;
+    %set/x0 v0x2525cb0_0, 1, 1;
+t_104 ;
+    %ix/load 1, 14, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.656, 4;
+    %load/x1p 8, v0x2526110_0, 1;
+    %jmp T_2.657;
+T_2.656 ;
+    %mov 8, 2, 1;
+T_2.657 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.658, 4;
+    %load/x1p 9, v0x2526110_0, 11;
+    %jmp T_2.659;
+T_2.658 ;
+    %mov 9, 2, 11;
+T_2.659 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 0, 9, 11;
+    %jmp/1 t_105, 4;
+    %set/x0 v0x2525ea0_0, 8, 1;
+t_105 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.660, 4;
+    %load/x1p 8, v0x2526110_0, 11;
+    %jmp T_2.661;
+T_2.660 ;
+    %mov 8, 2, 11;
+T_2.661 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 0, 8, 11;
+    %jmp/1 t_106, 4;
+    %set/x0 v0x2526020_0, 1, 1;
+t_106 ;
+T_2.608 ;
+    %ix/load 1, 14, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.662, 4;
+    %load/x1p 8, v0x2525d50_0, 1;
+    %jmp T_2.663;
+T_2.662 ;
+    %mov 8, 2, 1;
+T_2.663 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.664, 4;
+    %load/x1p 9, v0x2525d50_0, 11;
+    %jmp T_2.665;
+T_2.664 ;
+    %mov 9, 2, 11;
+T_2.665 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.666, 4;
+    %load/x1p 9, v0x2525ea0_0, 1;
+    %jmp T_2.667;
+T_2.666 ;
+    %mov 9, 2, 1;
+T_2.667 ;
+; Save base=9 wid=1 in lookaside.
+    %cmp/u 8, 9, 1;
+    %mov 8, 4, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.668, 4;
+    %load/x1p 9, v0x2525d50_0, 11;
+    %jmp T_2.669;
+T_2.668 ;
+    %mov 9, 2, 11;
+T_2.669 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.670, 4;
+    %load/x1p 9, v0x2526020_0, 1;
+    %jmp T_2.671;
+T_2.670 ;
+    %mov 9, 2, 1;
+T_2.671 ;
+; Save base=9 wid=1 in lookaside.
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.672, 8;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.674, 4;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.676, 4;
+    %load/x1p 8, v0x2525d50_0, 11;
+    %jmp T_2.677;
+T_2.676 ;
+    %mov 8, 2, 11;
+T_2.677 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 3, 8, 11;
+    %jmp/1 T_2.678, 4;
+    %ix/get/s 0, 0, 2;
+T_2.678 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.674 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.679, 4;
+    %movi 8, 16, 6;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.681, 4;
+    %load/x1p 14, v0x2525d50_0, 11;
+    %jmp T_2.682;
+T_2.681 ;
+    %mov 14, 2, 11;
+T_2.682 ;
+; Save base=14 wid=11 in lookaside.
+    %ix/get 3, 14, 11;
+    %jmp/1 T_2.683, 4;
+    %ix/get/s 0, 8, 6;
+T_2.683 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.679 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.684, 4;
+    %movi 8, 32, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.686, 4;
+    %load/x1p 15, v0x2525d50_0, 11;
+    %jmp T_2.687;
+T_2.686 ;
+    %mov 15, 2, 11;
+T_2.687 ;
+; Save base=15 wid=11 in lookaside.
+    %ix/get 3, 15, 11;
+    %jmp/1 T_2.688, 4;
+    %ix/get/s 0, 8, 7;
+T_2.688 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.684 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.689, 4;
+    %movi 8, 48, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.691, 4;
+    %load/x1p 15, v0x2525d50_0, 11;
+    %jmp T_2.692;
+T_2.691 ;
+    %mov 15, 2, 11;
+T_2.692 ;
+; Save base=15 wid=11 in lookaside.
+    %ix/get 3, 15, 11;
+    %jmp/1 T_2.693, 4;
+    %ix/get/s 0, 8, 7;
+T_2.693 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.689 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.694, 4;
+    %movi 8, 64, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.696, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.697;
+T_2.696 ;
+    %mov 16, 2, 11;
+T_2.697 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.698, 4;
+    %ix/get/s 0, 8, 8;
+T_2.698 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.694 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.699, 4;
+    %movi 8, 80, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.701, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.702;
+T_2.701 ;
+    %mov 16, 2, 11;
+T_2.702 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.703, 4;
+    %ix/get/s 0, 8, 8;
+T_2.703 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.699 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.704, 4;
+    %movi 8, 96, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.706, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.707;
+T_2.706 ;
+    %mov 16, 2, 11;
+T_2.707 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.708, 4;
+    %ix/get/s 0, 8, 8;
+T_2.708 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.704 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.709, 4;
+    %movi 8, 112, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.711, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.712;
+T_2.711 ;
+    %mov 16, 2, 11;
+T_2.712 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.713, 4;
+    %ix/get/s 0, 8, 8;
+T_2.713 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.709 ;
+T_2.672 ;
+    %ix/load 1, 14, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.714, 4;
+    %load/x1p 8, v0x2525d50_0, 1;
+    %jmp T_2.715;
+T_2.714 ;
+    %mov 8, 2, 1;
+T_2.715 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.716, 4;
+    %load/x1p 9, v0x2525d50_0, 11;
+    %jmp T_2.717;
+T_2.716 ;
+    %mov 9, 2, 11;
+T_2.717 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.718, 4;
+    %load/x1p 9, v0x2525ea0_0, 1;
+    %jmp T_2.719;
+T_2.718 ;
+    %mov 9, 2, 1;
+T_2.719 ;
+; Save base=9 wid=1 in lookaside.
+    %cmp/u 8, 9, 1;
+    %mov 8, 4, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.720, 4;
+    %load/x1p 9, v0x2525d50_0, 11;
+    %jmp T_2.721;
+T_2.720 ;
+    %mov 9, 2, 11;
+T_2.721 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.722, 4;
+    %load/x1p 9, v0x2526020_0, 1;
+    %jmp T_2.723;
+T_2.722 ;
+    %mov 9, 2, 1;
+T_2.723 ;
+; Save base=9 wid=1 in lookaside.
+    %cmpi/u 9, 0, 1;
+    %mov 9, 4, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.724, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.726, 4;
+    %load/x1p 136, v0x2525d50_0, 12;
+    %jmp T_2.727;
+T_2.726 ;
+    %mov 136, 2, 12;
+T_2.727 ;
+; Save base=136 wid=12 in lookaside.
+    %ix/get 3, 136, 12;
+    %load/av 8, v0x2526870, 128;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.728, 4;
+    %load/x1p 136, v0x2525d50_0, 11;
+    %jmp T_2.729;
+T_2.728 ;
+    %mov 136, 2, 11;
+T_2.729 ;
+; Save base=136 wid=11 in lookaside.
+    %ix/get 3, 136, 11;
+   %jmp/1 t_107, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2525c30, 8, 128;
+t_107 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.730, 4;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.732, 4;
+    %load/x1p 8, v0x2525d50_0, 11;
+    %jmp T_2.733;
+T_2.732 ;
+    %mov 8, 2, 11;
+T_2.733 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 3, 8, 11;
+    %jmp/1 T_2.734, 4;
+    %ix/get/s 0, 0, 2;
+T_2.734 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.730 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.735, 4;
+    %movi 8, 16, 6;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.737, 4;
+    %load/x1p 14, v0x2525d50_0, 11;
+    %jmp T_2.738;
+T_2.737 ;
+    %mov 14, 2, 11;
+T_2.738 ;
+; Save base=14 wid=11 in lookaside.
+    %ix/get 3, 14, 11;
+    %jmp/1 T_2.739, 4;
+    %ix/get/s 0, 8, 6;
+T_2.739 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.735 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.740, 4;
+    %movi 8, 32, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.742, 4;
+    %load/x1p 15, v0x2525d50_0, 11;
+    %jmp T_2.743;
+T_2.742 ;
+    %mov 15, 2, 11;
+T_2.743 ;
+; Save base=15 wid=11 in lookaside.
+    %ix/get 3, 15, 11;
+    %jmp/1 T_2.744, 4;
+    %ix/get/s 0, 8, 7;
+T_2.744 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.740 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.745, 4;
+    %movi 8, 48, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.747, 4;
+    %load/x1p 15, v0x2525d50_0, 11;
+    %jmp T_2.748;
+T_2.747 ;
+    %mov 15, 2, 11;
+T_2.748 ;
+; Save base=15 wid=11 in lookaside.
+    %ix/get 3, 15, 11;
+    %jmp/1 T_2.749, 4;
+    %ix/get/s 0, 8, 7;
+T_2.749 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.745 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.750, 4;
+    %movi 8, 64, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.752, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.753;
+T_2.752 ;
+    %mov 16, 2, 11;
+T_2.753 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.754, 4;
+    %ix/get/s 0, 8, 8;
+T_2.754 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.750 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.755, 4;
+    %movi 8, 80, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.757, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.758;
+T_2.757 ;
+    %mov 16, 2, 11;
+T_2.758 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.759, 4;
+    %ix/get/s 0, 8, 8;
+T_2.759 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.755 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.760, 4;
+    %movi 8, 96, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.762, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.763;
+T_2.762 ;
+    %mov 16, 2, 11;
+T_2.763 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.764, 4;
+    %ix/get/s 0, 8, 8;
+T_2.764 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.760 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.765, 4;
+    %movi 8, 112, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.767, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.768;
+T_2.767 ;
+    %mov 16, 2, 11;
+T_2.768 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.769, 4;
+    %ix/get/s 0, 8, 8;
+T_2.769 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.765 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.770, 4;
+    %load/x1p 8, v0x2525d50_0, 11;
+    %jmp T_2.771;
+T_2.770 ;
+    %mov 8, 2, 11;
+T_2.771 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 0, 8, 11;
+    %jmp/1 t_108, 4;
+    %set/x0 v0x2526020_0, 1, 1;
+t_108 ;
+T_2.724 ;
+    %ix/load 1, 14, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.772, 4;
+    %load/x1p 8, v0x2525d50_0, 1;
+    %jmp T_2.773;
+T_2.772 ;
+    %mov 8, 2, 1;
+T_2.773 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.774, 4;
+    %load/x1p 9, v0x2525d50_0, 11;
+    %jmp T_2.775;
+T_2.774 ;
+    %mov 9, 2, 11;
+T_2.775 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.776, 4;
+    %load/x1p 9, v0x2525ea0_0, 1;
+    %jmp T_2.777;
+T_2.776 ;
+    %mov 9, 2, 1;
+T_2.777 ;
+; Save base=9 wid=1 in lookaside.
+    %cmp/u 8, 9, 1;
+    %inv 4, 1;
+    %mov 8, 4, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.778, 4;
+    %load/x1p 9, v0x2525d50_0, 11;
+    %jmp T_2.779;
+T_2.778 ;
+    %mov 9, 2, 11;
+T_2.779 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.780, 4;
+    %load/x1p 9, v0x2525cb0_0, 1;
+    %jmp T_2.781;
+T_2.780 ;
+    %mov 9, 2, 1;
+T_2.781 ;
+; Save base=9 wid=1 in lookaside.
+    %cmpi/u 9, 0, 1;
+    %mov 9, 4, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.782, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.784, 4;
+    %load/x1p 136, v0x2525d50_0, 12;
+    %jmp T_2.785;
+T_2.784 ;
+    %mov 136, 2, 12;
+T_2.785 ;
+; Save base=136 wid=12 in lookaside.
+    %ix/get 3, 136, 12;
+    %load/av 8, v0x2526870, 128;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.786, 4;
+    %load/x1p 136, v0x2525d50_0, 11;
+    %jmp T_2.787;
+T_2.786 ;
+    %mov 136, 2, 11;
+T_2.787 ;
+; Save base=136 wid=11 in lookaside.
+    %ix/get 3, 136, 11;
+   %jmp/1 t_109, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2525c30, 8, 128;
+t_109 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.788, 4;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.790, 4;
+    %load/x1p 8, v0x2525d50_0, 11;
+    %jmp T_2.791;
+T_2.790 ;
+    %mov 8, 2, 11;
+T_2.791 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 3, 8, 11;
+    %jmp/1 T_2.792, 4;
+    %ix/get/s 0, 0, 2;
+T_2.792 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.788 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.793, 4;
+    %movi 8, 16, 6;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.795, 4;
+    %load/x1p 14, v0x2525d50_0, 11;
+    %jmp T_2.796;
+T_2.795 ;
+    %mov 14, 2, 11;
+T_2.796 ;
+; Save base=14 wid=11 in lookaside.
+    %ix/get 3, 14, 11;
+    %jmp/1 T_2.797, 4;
+    %ix/get/s 0, 8, 6;
+T_2.797 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.793 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.798, 4;
+    %movi 8, 32, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.800, 4;
+    %load/x1p 15, v0x2525d50_0, 11;
+    %jmp T_2.801;
+T_2.800 ;
+    %mov 15, 2, 11;
+T_2.801 ;
+; Save base=15 wid=11 in lookaside.
+    %ix/get 3, 15, 11;
+    %jmp/1 T_2.802, 4;
+    %ix/get/s 0, 8, 7;
+T_2.802 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.798 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.803, 4;
+    %movi 8, 48, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.805, 4;
+    %load/x1p 15, v0x2525d50_0, 11;
+    %jmp T_2.806;
+T_2.805 ;
+    %mov 15, 2, 11;
+T_2.806 ;
+; Save base=15 wid=11 in lookaside.
+    %ix/get 3, 15, 11;
+    %jmp/1 T_2.807, 4;
+    %ix/get/s 0, 8, 7;
+T_2.807 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.803 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.808, 4;
+    %movi 8, 64, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.810, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.811;
+T_2.810 ;
+    %mov 16, 2, 11;
+T_2.811 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.812, 4;
+    %ix/get/s 0, 8, 8;
+T_2.812 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.808 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.813, 4;
+    %movi 8, 80, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.815, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.816;
+T_2.815 ;
+    %mov 16, 2, 11;
+T_2.816 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.817, 4;
+    %ix/get/s 0, 8, 8;
+T_2.817 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.813 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.818, 4;
+    %movi 8, 96, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.820, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.821;
+T_2.820 ;
+    %mov 16, 2, 11;
+T_2.821 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.822, 4;
+    %ix/get/s 0, 8, 8;
+T_2.822 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.818 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.823, 4;
+    %movi 8, 112, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.825, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.826;
+T_2.825 ;
+    %mov 16, 2, 11;
+T_2.826 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.827, 4;
+    %ix/get/s 0, 8, 8;
+T_2.827 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.823 ;
+    %ix/load 1, 14, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.828, 4;
+    %load/x1p 8, v0x2525d50_0, 1;
+    %jmp T_2.829;
+T_2.828 ;
+    %mov 8, 2, 1;
+T_2.829 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.830, 4;
+    %load/x1p 9, v0x2525d50_0, 11;
+    %jmp T_2.831;
+T_2.830 ;
+    %mov 9, 2, 11;
+T_2.831 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 0, 9, 11;
+    %jmp/1 t_110, 4;
+    %set/x0 v0x2525ea0_0, 8, 1;
+t_110 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.832, 4;
+    %load/x1p 8, v0x2525d50_0, 11;
+    %jmp T_2.833;
+T_2.832 ;
+    %mov 8, 2, 11;
+T_2.833 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 0, 8, 11;
+    %jmp/1 t_111, 4;
+    %set/x0 v0x2526020_0, 1, 1;
+t_111 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.834, 4;
+    %load/x1p 8, v0x2525d50_0, 11;
+    %jmp T_2.835;
+T_2.834 ;
+    %mov 8, 2, 11;
+T_2.835 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 0, 8, 11;
+    %jmp/1 t_112, 4;
+    %set/x0 v0x2525cb0_0, 0, 1;
+t_112 ;
+T_2.782 ;
+    %ix/load 1, 14, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.836, 4;
+    %load/x1p 8, v0x2525d50_0, 1;
+    %jmp T_2.837;
+T_2.836 ;
+    %mov 8, 2, 1;
+T_2.837 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.838, 4;
+    %load/x1p 9, v0x2525d50_0, 11;
+    %jmp T_2.839;
+T_2.838 ;
+    %mov 9, 2, 11;
+T_2.839 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.840, 4;
+    %load/x1p 9, v0x2525ea0_0, 1;
+    %jmp T_2.841;
+T_2.840 ;
+    %mov 9, 2, 1;
+T_2.841 ;
+; Save base=9 wid=1 in lookaside.
+    %cmp/u 8, 9, 1;
+    %inv 4, 1;
+    %mov 8, 4, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.842, 4;
+    %load/x1p 9, v0x2525d50_0, 11;
+    %jmp T_2.843;
+T_2.842 ;
+    %mov 9, 2, 11;
+T_2.843 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 1, 9, 11;
+    %jmp/1 T_2.844, 4;
+    %load/x1p 9, v0x2525cb0_0, 1;
+    %jmp T_2.845;
+T_2.844 ;
+    %mov 9, 2, 1;
+T_2.845 ;
+; Save base=9 wid=1 in lookaside.
+    %and 8, 9, 1;
+    %jmp/0xz  T_2.846, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.848, 4;
+    %load/x1p 8, v0x2525d50_0, 11;
+    %jmp T_2.849;
+T_2.848 ;
+    %mov 8, 2, 11;
+T_2.849 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/load 0, 0, 0;
+    %set/x0 v0x2525f80_0, 8, 11;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.850, 4;
+    %load/x1p 8, v0x2525d50_0, 11;
+    %jmp T_2.851;
+T_2.850 ;
+    %mov 8, 2, 11;
+T_2.851 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 1, 8, 11;
+    %jmp/1 T_2.852, 4;
+    %load/x1p 8, v0x2525ea0_0, 1;
+    %jmp T_2.853;
+T_2.852 ;
+    %mov 8, 2, 1;
+T_2.853 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 0, 11, 0;
+    %set/x0 v0x2525f80_0, 8, 1;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.854, 4;
+    %load/x1p 136, v0x2525d50_0, 11;
+    %jmp T_2.855;
+T_2.854 ;
+    %mov 136, 2, 11;
+T_2.855 ;
+; Save base=136 wid=11 in lookaside.
+    %ix/get 3, 136, 11;
+    %load/av 8, v0x2525c30, 128;
+    %ix/getv 3, v0x2525f80_0;
+   %jmp/1 t_113, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2526870, 8, 128;
+t_113 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.856, 4;
+    %load/x1p 136, v0x2525d50_0, 12;
+    %jmp T_2.857;
+T_2.856 ;
+    %mov 136, 2, 12;
+T_2.857 ;
+; Save base=136 wid=12 in lookaside.
+    %ix/get 3, 136, 12;
+    %load/av 8, v0x2526870, 128;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.858, 4;
+    %load/x1p 136, v0x2525d50_0, 11;
+    %jmp T_2.859;
+T_2.858 ;
+    %mov 136, 2, 11;
+T_2.859 ;
+; Save base=136 wid=11 in lookaside.
+    %ix/get 3, 136, 11;
+   %jmp/1 t_114, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x2525c30, 8, 128;
+t_114 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 0, 3;
+    %jmp/0xz  T_2.860, 4;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.862, 4;
+    %load/x1p 8, v0x2525d50_0, 11;
+    %jmp T_2.863;
+T_2.862 ;
+    %mov 8, 2, 11;
+T_2.863 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 3, 8, 11;
+    %jmp/1 T_2.864, 4;
+    %ix/get/s 0, 0, 2;
+T_2.864 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.860 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_2.865, 4;
+    %movi 8, 16, 6;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.867, 4;
+    %load/x1p 14, v0x2525d50_0, 11;
+    %jmp T_2.868;
+T_2.867 ;
+    %mov 14, 2, 11;
+T_2.868 ;
+; Save base=14 wid=11 in lookaside.
+    %ix/get 3, 14, 11;
+    %jmp/1 T_2.869, 4;
+    %ix/get/s 0, 8, 6;
+T_2.869 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.865 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 2, 3;
+    %jmp/0xz  T_2.870, 4;
+    %movi 8, 32, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.872, 4;
+    %load/x1p 15, v0x2525d50_0, 11;
+    %jmp T_2.873;
+T_2.872 ;
+    %mov 15, 2, 11;
+T_2.873 ;
+; Save base=15 wid=11 in lookaside.
+    %ix/get 3, 15, 11;
+    %jmp/1 T_2.874, 4;
+    %ix/get/s 0, 8, 7;
+T_2.874 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.870 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 3, 3;
+    %jmp/0xz  T_2.875, 4;
+    %movi 8, 48, 7;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.877, 4;
+    %load/x1p 15, v0x2525d50_0, 11;
+    %jmp T_2.878;
+T_2.877 ;
+    %mov 15, 2, 11;
+T_2.878 ;
+; Save base=15 wid=11 in lookaside.
+    %ix/get 3, 15, 11;
+    %jmp/1 T_2.879, 4;
+    %ix/get/s 0, 8, 7;
+T_2.879 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.875 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 4, 3;
+    %jmp/0xz  T_2.880, 4;
+    %movi 8, 64, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.882, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.883;
+T_2.882 ;
+    %mov 16, 2, 11;
+T_2.883 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.884, 4;
+    %ix/get/s 0, 8, 8;
+T_2.884 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.880 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 5, 3;
+    %jmp/0xz  T_2.885, 4;
+    %movi 8, 80, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.887, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.888;
+T_2.887 ;
+    %mov 16, 2, 11;
+T_2.888 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.889, 4;
+    %ix/get/s 0, 8, 8;
+T_2.889 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.885 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 6, 3;
+    %jmp/0xz  T_2.890, 4;
+    %movi 8, 96, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.892, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.893;
+T_2.892 ;
+    %mov 16, 2, 11;
+T_2.893 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.894, 4;
+    %ix/get/s 0, 8, 8;
+T_2.894 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.890 ;
+    %load/v 8, v0x2525d50_0, 3; Only need 3 of 15 bits
+; Save base=8 wid=3 in lookaside.
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_2.895, 4;
+    %movi 8, 112, 8;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.897, 4;
+    %load/x1p 16, v0x2525d50_0, 11;
+    %jmp T_2.898;
+T_2.897 ;
+    %mov 16, 2, 11;
+T_2.898 ;
+; Save base=16 wid=11 in lookaside.
+    %ix/get 3, 16, 11;
+    %jmp/1 T_2.899, 4;
+    %ix/get/s 0, 8, 8;
+T_2.899 ;
+    %load/avx.p 8, v0x2525c30, 0;
+    %load/avx.p 9, v0x2525c30, 0;
+    %load/avx.p 10, v0x2525c30, 0;
+    %load/avx.p 11, v0x2525c30, 0;
+    %load/avx.p 12, v0x2525c30, 0;
+    %load/avx.p 13, v0x2525c30, 0;
+    %load/avx.p 14, v0x2525c30, 0;
+    %load/avx.p 15, v0x2525c30, 0;
+    %load/avx.p 16, v0x2525c30, 0;
+    %load/avx.p 17, v0x2525c30, 0;
+    %load/avx.p 18, v0x2525c30, 0;
+    %load/avx.p 19, v0x2525c30, 0;
+    %load/avx.p 20, v0x2525c30, 0;
+    %load/avx.p 21, v0x2525c30, 0;
+    %load/avx.p 22, v0x2525c30, 0;
+    %load/avx.p 23, v0x2525c30, 0;
+; Save base=8 wid=16 in lookaside.
+    %set/v v0x2525e00_0, 8, 16;
+T_2.895 ;
+    %ix/load 1, 14, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.900, 4;
+    %load/x1p 8, v0x2525d50_0, 1;
+    %jmp T_2.901;
+T_2.900 ;
+    %mov 8, 2, 1;
+T_2.901 ;
+; Save base=8 wid=1 in lookaside.
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.902, 4;
+    %load/x1p 9, v0x2525d50_0, 11;
+    %jmp T_2.903;
+T_2.902 ;
+    %mov 9, 2, 11;
+T_2.903 ;
+; Save base=9 wid=11 in lookaside.
+    %ix/get 0, 9, 11;
+    %jmp/1 t_115, 4;
+    %set/x0 v0x2525ea0_0, 8, 1;
+t_115 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.904, 4;
+    %load/x1p 8, v0x2525d50_0, 11;
+    %jmp T_2.905;
+T_2.904 ;
+    %mov 8, 2, 11;
+T_2.905 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 0, 8, 11;
+    %jmp/1 t_116, 4;
+    %set/x0 v0x2526020_0, 1, 1;
+t_116 ;
+    %ix/load 1, 3, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_2.906, 4;
+    %load/x1p 8, v0x2525d50_0, 11;
+    %jmp T_2.907;
+T_2.906 ;
+    %mov 8, 2, 11;
+T_2.907 ;
+; Save base=8 wid=11 in lookaside.
+    %ix/get 0, 8, 11;
+    %jmp/1 t_117, 4;
+    %set/x0 v0x2525cb0_0, 0, 1;
+t_117 ;
+T_2.846 ;
+    %jmp T_2;
+    .thread T_2;
+    .scope S_0x244f760;
+T_3 ;
+    %set/v v0x2526ac0_0, 0, 1;
+    %end;
+    .thread T_3;
+    .scope S_0x244f760;
+T_4 ;
+    %delay 50, 0;
+    %load/v 8, v0x2526ac0_0, 1;
+    %inv 8, 1;
+    %set/v v0x2526ac0_0, 8, 1;
+    %jmp T_4;
+    .thread T_4;
+    .scope S_0x244f760;
+T_5 ;
+    %delay 100, 0;
+    %set/v v0x2526e00_0, 0, 15;
+    %set/v v0x2526e80_0, 1, 1;
+    %movi 8, 23, 16;
+    %set/v v0x2526fe0_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 1, 15;
+    %set/v v0x2526e00_0, 8, 15;
+    %set/v v0x2526e80_0, 1, 1;
+    %movi 8, 25, 16;
+    %set/v v0x2526fe0_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 2, 15;
+    %set/v v0x2526e00_0, 8, 15;
+    %set/v v0x2526e80_0, 1, 1;
+    %movi 8, 95, 16;
+    %set/v v0x2526fe0_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 3, 15;
+    %set/v v0x2526e00_0, 8, 15;
+    %set/v v0x2526e80_0, 1, 1;
+    %movi 8, 84, 16;
+    %set/v v0x2526fe0_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 4, 15;
+    %set/v v0x2526e00_0, 8, 15;
+    %set/v v0x2526e80_0, 1, 1;
+    %movi 8, 16, 16;
+    %set/v v0x2526fe0_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 5, 15;
+    %set/v v0x2526e00_0, 8, 15;
+    %set/v v0x2526e80_0, 1, 1;
+    %movi 8, 105, 16;
+    %set/v v0x2526fe0_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 6, 15;
+    %set/v v0x2526e00_0, 8, 15;
+    %set/v v0x2526e80_0, 1, 1;
+    %movi 8, 105, 16;
+    %set/v v0x2526fe0_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 7, 15;
+    %set/v v0x2526e00_0, 8, 15;
+    %set/v v0x2526e80_0, 1, 1;
+    %movi 8, 105, 16;
+    %set/v v0x2526fe0_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 1, 15;
+    %set/v v0x2526e00_0, 8, 15;
+    %set/v v0x2526e80_0, 0, 1;
+    %delay 100, 0;
+    %set/v v0x2526e00_0, 0, 15;
+    %set/v v0x2526e80_0, 0, 1;
+    %delay 100, 0;
+    %movi 8, 8192, 15;
+    %set/v v0x2526e00_0, 8, 15;
+    %set/v v0x2526e80_0, 1, 1;
+    %movi 8, 54, 16;
+    %set/v v0x2526fe0_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 8193, 15;
+    %set/v v0x2526e00_0, 8, 15;
+    %set/v v0x2526e80_0, 1, 1;
+    %movi 8, 1020, 16;
+    %set/v v0x2526fe0_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 6, 15;
+    %set/v v0x2526e00_0, 8, 15;
+    %set/v v0x2526e80_0, 0, 1;
+    %delay 100, 0;
+    %movi 8, 2, 15;
+    %set/v v0x2526e00_0, 8, 15;
+    %set/v v0x2526e80_0, 0, 1;
+    %delay 1500, 0;
+    %vpi_call 2 93 "$finish";
+    %end;
+    .thread T_5;
+    .scope S_0x244f760;
+T_6 ;
+    %delay 100, 0;
+    %movi 8, 8, 15;
+    %set/v v0x2526c70_0, 8, 15;
+    %movi 8, 8, 15;
+    %set/v v0x2526b40_0, 8, 15;
+    %movi 8, 292, 16;
+    %set/v v0x2526d50_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 9, 15;
+    %set/v v0x2526c70_0, 8, 15;
+    %movi 8, 8, 15;
+    %set/v v0x2526b40_0, 8, 15;
+    %movi 8, 3832, 16;
+    %set/v v0x2526d50_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 10, 15;
+    %set/v v0x2526c70_0, 8, 15;
+    %movi 8, 10, 15;
+    %set/v v0x2526b40_0, 8, 15;
+    %movi 8, 32, 16;
+    %set/v v0x2526d50_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 11, 15;
+    %set/v v0x2526c70_0, 8, 15;
+    %movi 8, 10, 15;
+    %set/v v0x2526b40_0, 8, 15;
+    %movi 8, 322, 16;
+    %set/v v0x2526d50_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 12, 15;
+    %set/v v0x2526c70_0, 8, 15;
+    %movi 8, 11, 15;
+    %set/v v0x2526b40_0, 8, 15;
+    %movi 8, 3132, 16;
+    %set/v v0x2526d50_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 13, 15;
+    %set/v v0x2526c70_0, 8, 15;
+    %movi 8, 13, 15;
+    %set/v v0x2526b40_0, 8, 15;
+    %movi 8, 832, 16;
+    %set/v v0x2526d50_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 14, 15;
+    %set/v v0x2526c70_0, 8, 15;
+    %movi 8, 11, 15;
+    %set/v v0x2526b40_0, 8, 15;
+    %movi 8, 3832, 16;
+    %set/v v0x2526d50_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 15, 15;
+    %set/v v0x2526c70_0, 8, 15;
+    %movi 8, 12, 15;
+    %set/v v0x2526b40_0, 8, 15;
+    %movi 8, 3232, 16;
+    %set/v v0x2526d50_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 8201, 15;
+    %set/v v0x2526c70_0, 8, 15;
+    %movi 8, 8, 15;
+    %set/v v0x2526b40_0, 8, 15;
+    %movi 8, 15, 16;
+    %set/v v0x2526d50_0, 8, 16;
+    %delay 100, 0;
+    %movi 8, 8, 15;
+    %set/v v0x2526c70_0, 8, 15;
+    %movi 8, 8201, 15;
+    %set/v v0x2526b40_0, 8, 15;
+    %movi 8, 12, 16;
+    %set/v v0x2526d50_0, 8, 16;
+    %delay 1000, 0;
+    %vpi_call 2 152 "$finish";
+    %end;
+    .thread T_6;
+    .scope S_0x244f760;
+T_7 ;
+    %wait E_0x244f690;
+    %vpi_call 2 158 "$display", "ic_address = %d, ic_enable = %d, ic_write_data = %d, ic_read_output = %d\012dc_read_address = %d, dc_write_address = %d, dc_write_data = %d, dc_read_output = %d\012", v0x2526e00_0, v0x2526e80_0, v0x2526fe0_0, v0x2526f30_0, v0x2526b40_0, v0x2526c70_0, v0x2526d50_0, v0x2526bc0_0;
+    %jmp T_7;
+    .thread T_7, $push;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "cache_design_tb_final.v";
+    "./cache_design_final.v";
